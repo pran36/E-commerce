@@ -59,7 +59,7 @@
                                 }
                                 ?>
                             <option value="0" class="dropdown-item">Select a category</option>
-                            @foreach (App\Models\Category::with('children')->where('parent_id',0)->get() as $category)
+                            @foreach ($categories as $category)
                                 {{ generateCategoryList($category)}}
                             @endforeach
                         </select><br><br>

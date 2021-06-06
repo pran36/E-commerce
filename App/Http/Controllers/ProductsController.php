@@ -10,4 +10,10 @@ class ProductsController extends Controller
         $products = products::latest()->get();
 	    return view('home',['products'=>$products]);
     }
+    public function show(products $product){
+        return view('product',['product'=>$product]);
+    }
+    public function search(){
+        
+    }
 }

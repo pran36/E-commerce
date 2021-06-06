@@ -1,6 +1,8 @@
-<x-layout>
-
-    
+@extends('product_layout')
+@section('menu')
+	@include('Includes.home-menu')
+@endsection
+@section('content')
 	<!-- Slider Area -->
 	<section class="hero-slider">
 		<!-- Single Slider -->
@@ -122,7 +124,13 @@
 																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
 															</div>
 															<div class="product-action-2">
-																<a title="Add to cart" href="#">Add to cart</a>
+																<form action="{{route('cart.store')}}" method="POST">
+																	@csrf
+																	<input type="hidden" name="product_id" value="{{$product->id}}">
+																	<input type="hidden" name="quantity" value="1">
+																	<a title="Add to cart" href="#"onclick="event.preventDefault();
+																	this.closest('form').submit();">Add to cart</a>
+																</form>
 															</div>
 														</div>
 													</div>
@@ -1867,5 +1875,4 @@
             </div>
     </div>
     <!-- Modal end -->
-
-</x-layout>
+@endsection

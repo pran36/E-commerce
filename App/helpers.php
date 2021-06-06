@@ -1,4 +1,6 @@
 <?php
+
+use App\Models\category;
 use Intervention\Image\Facades\Image;
 
 use function PHPUnit\Framework\fileExists;
@@ -13,6 +15,12 @@ if(!function_exists('image_crop')){
                 $image_resize->resize($width,$height);
                 $image_resize->save(storage_path('app/public/images/thumbnail/'.$image_name));
             }
+            // return asset('app/public/images/thumbnail/'.$image_name);
         }
     }
+if(!function_exists('categories_list')){
+    function categories_list(){
+        return category::whereParentId(0)->get();
+    }
+}
 ?>

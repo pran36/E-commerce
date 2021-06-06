@@ -28,7 +28,8 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $categories = category::all();
+        // $categories = category::all();
+        $categories = category::with('children')->where('parent_id',0)->get();
         return view('Admin.Products.create',['categories'=>$categories]);
     }
 

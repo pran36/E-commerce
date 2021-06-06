@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 use App\Models\products;
@@ -35,37 +38,18 @@ Route::get('/product/{product}', function (products $product) { //get directly
 	//$product = products::find($id);
     return view('products',['product'=>$product]);
 });
-Route::get('/create_product',function(){
-	products::create(
-		[
-			'product_name'=> 'laptop',
-			'product_desc' => 'this is a good laptop',
-			'price'=>10000,
-			'image'=>' ',		]
-	);
-});
-Route::get('/get_product',function(){
-	$products = products::get();
-	return $products;
-});
-Route::get('/create_category',function(){
-	category::create(
-		[
-			'category_name'=>'mobile phones',
-			'category_desc'=>'mobile phones consist of smart phone and I-phones',
-		]
-		);
-});
+
 Route::get('/categories/{category}',[CategoryController::class,'index']);
 
-Route::get('/sidebar',function(){
-	$category = category::all();
-	return view('sidebar',['category'=>$category]);
-});
-// Route::get('/',function(){
-// 	return view('welcome');
-// });
 Route::get('/',[ProductsController::class,'index']);
+// Route::get('/product/search',[ProductsController::class,'search'])->name('products.search');
+
+//Searching Routes
+Route::get('/search',[SearchController::class,'search'])->name('search');
+
+//cart route
+Route::resource('order',OrderController::class);
+Route::resource('cart',OrderItemController::class)->middleware('auth');
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
 	Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');

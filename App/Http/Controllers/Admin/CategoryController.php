@@ -16,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = category::get();
+        // $categories = category::get();
+        $categories = category::with('children')->where('parent_id',0)->get();
         return view('Admin.Categories.index',['categories'=>$categories]);
     }
 

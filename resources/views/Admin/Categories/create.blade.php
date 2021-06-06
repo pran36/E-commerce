@@ -33,10 +33,33 @@
                         @endforeach
                     </x-forms.select> --}}
                         <select name="parent_id" id="" id="dropdownMenuButton" class="btn btn-secondary dropdown-toggle">
-                            
+                            <?php
+                                function generateCategoryList($category,$spaceCount=0){  
+                                    // * for categories with children
+                                    if ($category->children->count() > 0 || $category->parent_id == 0)
+                                    {  
+                                        ?>
+                                        {{-- here we won't allow the products for categories with children --}}
+                                        <option value="{{ $category->id }}" {{ $category->id == old('category_id')?"selected":"" }} >{!!str_repeat('&nbsp;',$spaceCount)!!}>{{ $category->category_name }}</option>   
+                                        <?php
+                                        $spaceCount +=4;
+                                        foreach ($category->children as $subcategory){
+                                        generateCategoryList($subcategory,$spaceCount);
+                                        }
+                                }else{
+                                    $spaceCount +=4;
+                                ?>
+                                {{-- products can only have category without children --}}
+                                    <option value="{{ $category->id }}" {{ $category->id == old('category_id')?"selected":"" }}>{!!str_repeat('&nbsp;',$spaceCount)!!}>
+                                    {{ $category->category_name }}</option>
+                                <?php
+                                }
+                                
+                                }
+                                ?>
                             <option value="0" class="dropdown-item">Select a category</option>
                             @foreach ($categories as $category)
-                                <option value="{{$category->id}}" {{ $category->id == old('parent_id') ? 'selected': ''}} class="dropdown-item">{{$category->category_name}}</option>
+                                {{ generateCategoryList($category)}}
                             @endforeach
                         </select><br><br>
                         <input type="submit" name="submit" value="save" class="btn btn-gray-700 btn-block">
