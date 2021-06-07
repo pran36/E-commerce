@@ -85,9 +85,10 @@
 										@auth
 											<li><i class="ti-user"></i> <a href="{{ url('/admin/dashboard') }}">My account</a></li>
 											{{-- <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a> --}}
+											<li><i class="ti-power-off"></i><form action="{{ route('logout') }}" method="POST">@csrf<a href="#" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</a></form></li>
 										@else
 											<li><i class="ti-power-off"></i><a href="{{ route('login') }}">Login</a></li>
-											{{-- <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a> --}}
+											{{-- <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a> --}} 
 
 											@if (Route::has('register'))
 												<li><i class="ti-user"></i> <a href="{{ route('register') }}">Register</a></li>

@@ -12,7 +12,8 @@
                     </ul>
                 </div>
               @endif
-                <form action="/admin/categories/update/{{$category->id}}" method="POST">
+                <form action="{{route('admin.categories.update',$category->id)}}" method="POST">
+                    @method('PUT')
                     @csrf
                     Category Name: <input type="text" name="category_name" class="form-control" value="{{ $category->category_name }}"
                     @error('category_name')

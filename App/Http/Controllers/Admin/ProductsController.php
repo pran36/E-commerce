@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\category;
 use App\Models\products;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use function PHPUnit\Framework\fileExists;
 
 class ProductsController extends Controller
@@ -17,8 +20,19 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = products::latest()->get();
-        return view('Admin.Products.index',['products'=>$products]);
+        // return Auth::user();
+        if(Auth::user()->role == "admin"){
+            $products = products::latest()->get();
+            return view('Admin.Products.index',['products'=>$products]);
+        }
+        else{
+            $id = Auth::id();
+            $product = products::whereUserId($id)->get(); 
+            // return $product;
+            // $products=products::latest()->where($product->user_id == Auth::User()->id);
+            return view('Admin.Products.index',['products'=>$product]);
+        }
+        
     }
 
     /**
@@ -58,6 +72,7 @@ class ProductsController extends Controller
         $products->product_desc = $request->input('product_desc');
         $products->price = $request->input('price');
         $products->category_id = $request->input('category_id');
+        $products->user_id = Auth::id();
         if($request->hasFile('image_upload')){
             // return $products;
             $name = $request->file('image_upload')->getClientOriginalName();
@@ -113,14 +128,19 @@ class ProductsController extends Controller
      */
     public function update(Request $request, products $product)
     {
+        // if(! Gate::allows('upade-product',$product)){
+        //     abort(403);
+        // }
         // return $request;
         // $products = products::find($products->id);
         // return $product;
+        $this->authorize('update',$product);
         $product->product_name = $request->input('product_name');
         $product->product_desc = $request->input('product_desc');
         $product->price = $request->input('price');
         $product->category_id = $request->input('category_id');
-        $product->image = ' ';
+        // $product->image = ' ';
+        $product->user_id = Auth::id();
         if($product->save()){
             return redirect()->route('admin.products.index');
         }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\category;
 use Attribute;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -16,6 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $this->authorize('categories',Auth::user());
         // $categories = category::get();
         $categories = category::with('children')->where('parent_id',0)->get();
         return view('Admin.Categories.index',['categories'=>$categories]);
@@ -28,6 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('categories',Auth::user());
         $categories = category::get();
         return view('Admin.Categories.create',['categories'=>$categories]);
     }

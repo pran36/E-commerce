@@ -82,6 +82,13 @@
               </nav>
             </li>
             <li class="nav-item">
+              <a href="" class="nav-link with-sub"><i  class="typcn typcn-document"></i>Users</a>
+              <nav class="az-menu-sub">
+                <a href="{{ route('admin.users.index')}}" class="nav-link">List</a>
+                <a href="{{ route('admin.users.create')}}" class="nav-link">Create</a>
+              </nav>
+            </li>
+            <li class="nav-item">
               <a href="chart-chartjs.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Charts</a>
             </li>
             <li class="nav-item">

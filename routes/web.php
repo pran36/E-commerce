@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 use App\Models\products;
@@ -56,7 +57,5 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
 	//Admin Routing	
 	Route::resource('products',AdminProductsController::class);
 	Route::resource('categories',AdminCategoryController::class);
-});
-Route::get('test',function(){
-    return App\Models\Category::with('children')->where('parent_id',1)->get();
+	Route::resource('users',UserController::class);
 });

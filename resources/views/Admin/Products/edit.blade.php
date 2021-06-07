@@ -2,6 +2,7 @@
     <div class="az-content az-content-dashboard">
         <div class="container">
           <div class="az-content-body">
+              {{-- @can('update-product', $products) --}}
                 <form action="{{route('admin.products.update',$products->id)}}" method="POST">
                     @method('PUT')
                     @csrf
@@ -23,6 +24,7 @@
                         </select><br><br>
                         <input type="submit" name="submit" value="Update" class="btn btn-gray-700 btn-block">
                 </form>
+              {{-- @endcan --}}
           </div>
         </div>
     </div>

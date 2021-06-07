@@ -1,4 +1,5 @@
 <x-admin.layout>
+  {{-- @can('dashboard', Auth::User()) --}}
 <div class="az-content az-content-dashboard">
     <div class="container">
       <div class="az-content-body">
@@ -381,4 +382,5 @@
       </div><!-- az-content-body -->
     </div>
   </div><!-- az-content -->
+  {{-- @endcan --}}
 </x-admin.layout>
