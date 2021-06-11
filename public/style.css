@@ -777,6 +777,7 @@ Version:1.0
 	font-size: 22px;
 }
 .header.shop .main-category {
+	display:none;
 	position: absolute;
 	left: 0;
 	top: 64px;
@@ -786,6 +787,9 @@ Version:1.0
 	-webkit-box-shadow: 0px 5px 15px #0000000a;
 	-moz-box-shadow: 0px 5px 15px #0000000a;
 	box-shadow: 0px 5px 15px #0000000a;
+}
+.header.shop:hover .main-category{
+	display:block;
 }
 .header.shop .main-category li{
 	display:block;

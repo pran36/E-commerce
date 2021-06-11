@@ -3,10 +3,15 @@
 	@include('Includes.home-menu')
 @endsection
 @section('content')
+	@php
+    $singleProduct = $products[0];
+	@endphp
 	<!-- Slider Area -->
 	<section class="hero-slider">
-		<!-- Single Slider -->
-		<div class="single-slider">
+		@if ($singleProduct->image != ' ')
+			{{ cover_crop($singleProduct->image,1900,700)}}
+		@endif
+		<div class="single-slider" style="background-image: url({{asset('storage/images/cover/'.$singleProduct->image)}})">
 			<div class="container">
 				<div class="row no-gutters">
 					<div class="col-lg-9 offset-lg-3 col-12">
@@ -14,8 +19,8 @@
 							<div class="row">
 								<div class="col-lg-7 col-12">
 									<div class="hero-text">
-										<h1><span>UP TO 50% OFF </span>Shirt For Man</h1>
-										<p>Maboriosam in a nesciung eget magnae <br> dapibus disting tloctio in the find it pereri <br> odiy maboriosm.</p>
+										<h1><span>UP TO 50% OFF </span>{{$singleProduct->product_name}}</h1>
+										<p>{{$singleProduct->product_desc}}</p>
 										<div class="button">
 											<a href="#" class="btn">Shop Now!</a>
 										</div>
@@ -35,42 +40,25 @@
 	<section class="small-banner section">
 		<div class="container-fluid">
 			<div class="row">
-				<!-- Single Banner  -->
+				@foreach ($threeProduct as $product)
+				@if ($product->image != ' ')
+					{{ medium_crop($product->image,600,370)}}
+				@endif
 				<div class="col-lg-4 col-md-6 col-12">
 					<div class="single-banner">
-						<img src="https://via.placeholder.com/600x370" alt="#">
+						<img src="{{asset('storage/images/medium/'.$product->image)}}" alt="#">
 						<div class="content">
-							<p>Man's Collectons</p>
-							<h3>Summer travel <br> collection</h3>
+							<p>{{$product->category->category_name}}</p>
+							<h3>{{$product->product_name}} <br> collection</h3>
 							<a href="#">Discover Now</a>
 						</div>
 					</div>
 				</div>
+				@endforeach
+				<!-- Single Banner  -->
+				
 				<!-- /End Single Banner  -->
 				<!-- Single Banner  -->
-				<div class="col-lg-4 col-md-6 col-12">
-					<div class="single-banner">
-						<img src="https://via.placeholder.com/600x370" alt="#">
-						<div class="content">
-							<p>Bag Collectons</p>
-							<h3>Awesome Bag <br> 2020</h3>
-							<a href="#">Shop Now</a>
-						</div>
-					</div>
-				</div>
-				<!-- /End Single Banner  -->
-				<!-- Single Banner  -->
-				<div class="col-lg-4 col-12">
-					<div class="single-banner tab-height">
-						<img src="https://via.placeholder.com/600x370" alt="#">
-						<div class="content">
-							<p>Flash Sale</p>
-							<h3>Mid Season <br> Up to <span>40%</span> Off</h3>
-							<a href="#">Discover Now</a>
-						</div>
-					</div>
-				</div>
-				<!-- /End Single Banner  -->
 			</div>
 		</div>
 	</section>
@@ -111,7 +99,7 @@
 												<div class="single-product">
 													<div class="product-img">
 														@if ($product->image != ' ')
-															{{ image_crop($product->image)}}
+															{{ image_crop($product->image,550,750)}}
 														@endif
 														<a href="\product\{{$product->id}}">
 															<img class="default-img" src="{{$product->image == ' ' ? 'https://via.placeholder.com/550x750':asset('storage/images/thumbnail/'.$product->image)}}" alt="#">
@@ -1260,30 +1248,23 @@
 	<section class="midium-banner">
 		<div class="container">
 			<div class="row">
+				@foreach ($twoProduct as $product)
 				<!-- Single Banner  -->
+				@if ($product->image != ' ')
+					{{ medium_crop($product->image,600,370)}}
+				@endif
 				<div class="col-lg-6 col-md-6 col-12">
 					<div class="single-banner">
-						<img src="https://via.placeholder.com/600x370" alt="#">
+						<img src="{{asset('storage/images/medium/'.$product->image)}}" alt="#">
 						<div class="content">
-							<p>Man's Collectons</p>
-							<h3>Man's items <br>Up to<span> 50%</span></h3>
+							<p>{{$product->category->category_name}}</p>
+							<h3>{{$product->product_name}} <br>Up to<span> 50%</span></h3>
 							<a href="#">Shop Now</a>
 						</div>
 					</div>
 				</div>
 				<!-- /End Single Banner  -->
-				<!-- Single Banner  -->
-				<div class="col-lg-6 col-md-6 col-12">
-					<div class="single-banner">
-						<img src="https://via.placeholder.com/600x370" alt="#">
-						<div class="content">
-							<p>shoes women</p>
-							<h3>mid season <br> up to <span>70%</span></h3>
-							<a href="#" class="btn">Shop Now</a>
-						</div>
-					</div>
-				</div>
-				<!-- /End Single Banner  -->
+				@endforeach
 			</div>
 		</div>
 	</section>

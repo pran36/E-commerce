@@ -19,7 +19,7 @@ class CategoryController extends Controller
     {
         $this->authorize('categories',Auth::user());
         // $categories = category::get();
-        $categories = category::with('children')->where('parent_id',0)->get();
+        $categories = category::with('children')->where('parent_id',0)->paginate(5);
         return view('Admin.Categories.index',['categories'=>$categories]);
     }
 

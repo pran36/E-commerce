@@ -41,4 +41,10 @@ class products extends Model
     protected function order_item(){
         return $this->hasMany(OrderItem::class);
     }
+    public function user_reviews(){
+        return $this->hasMany(user_reviews::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

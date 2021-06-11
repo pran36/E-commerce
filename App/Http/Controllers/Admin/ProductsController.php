@@ -22,12 +22,12 @@ class ProductsController extends Controller
     {
         // return Auth::user();
         if(Auth::user()->role == "admin"){
-            $products = products::latest()->get();
+            $products = products::latest()->paginate(5);
             return view('Admin.Products.index',['products'=>$products]);
         }
         else{
             $id = Auth::id();
-            $product = products::whereUserId($id)->get(); 
+            $product = products::whereUserId($id)->get()->paginate(5); 
             // return $product;
             // $products=products::latest()->where($product->user_id == Auth::User()->id);
             return view('Admin.Products.index',['products'=>$product]);

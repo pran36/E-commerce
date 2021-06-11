@@ -31,6 +31,9 @@
                     @endforeach
                 </table>
                 </div>
+                <div class="mt-5 d-flex justify-center mx-auto">
+                    {{ $users->links('pagination::bootstrap-4') }}
+                </div>
           </div>
         </div>
     </div>

@@ -9,6 +9,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\SingleProductController;
+use App\Http\Controllers\UserReviewsController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 use App\Models\products;
@@ -35,14 +37,11 @@ Route::get('/products', function () {
 	$products = products::all();
     return view('product',['products'=>$products]);
 });
-Route::get('/product/{product}', function (products $product) { //get directly
-	//$product = products::find($id);
-    return view('products',['product'=>$product]);
-});
+Route::get('/product/{product}', [SingleProductController::class,'index']);
 
 Route::get('/categories/{category}',[CategoryController::class,'index']);
 
-Route::get('/',[ProductsController::class,'index']);
+Route::get('/',[ProductsController::class,'index'])->name('home');
 // Route::get('/product/search',[ProductsController::class,'search'])->name('products.search');
 
 //Searching Routes
@@ -58,4 +57,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
 	Route::resource('products',AdminProductsController::class);
 	Route::resource('categories',AdminCategoryController::class);
 	Route::resource('users',UserController::class);
+});
+Route::middleware(['auth'])->group(function(){
+	Route::resource('reviews',UserReviewsController::class);
 });

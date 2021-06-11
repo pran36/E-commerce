@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\user_reviews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class UserReviewsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->authorize('categories',Auth::user());
-        $users = User::paginate(5);
-        return view('Admin.User.index',['users'=>$users]);
+        //
     }
 
     /**
@@ -39,16 +36,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $review = new user_reviews();
+        $review->user_id = Auth::id();
+        $review->rating = $request->rating;
+        $review->comment = $request->review;
+        $review->product_id = $request->products_id;
+        $review->save();
+        return redirect()->route('home');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\user_reviews  $user_reviews
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(user_reviews $user_reviews)
     {
         //
     }
@@ -56,10 +59,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\user_reviews  $user_reviews
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(user_reviews $user_reviews)
     {
         //
     }
@@ -68,10 +71,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\user_reviews  $user_reviews
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, user_reviews $user_reviews)
     {
         //
     }
@@ -79,10 +82,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\user_reviews  $user_reviews
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(user_reviews $user_reviews)
     {
         //
     }
