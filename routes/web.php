@@ -5,10 +5,12 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\UserReviewsController;
 use Illuminate\Routing\Route as RoutingRoute;
@@ -57,7 +59,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
 	Route::resource('products',AdminProductsController::class);
 	Route::resource('categories',AdminCategoryController::class);
 	Route::resource('users',UserController::class);
+	Route::resource('orders',AdminOrderController::class);
 });
 Route::middleware(['auth'])->group(function(){
 	Route::resource('reviews',UserReviewsController::class);
+	Route::resource('checkout',CheckoutController::class);
 });

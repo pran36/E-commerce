@@ -127,8 +127,8 @@
                                     <li class="last">You Pay<span>{{$order->total_price}}</span></li>
                                 </ul>
                                 <div class="button5">
-                                    <a href="#" class="btn">Checkout</a>
-                                    <a href="#" class="btn">Continue shopping</a>
+                                    <a href="{{route('order.show',$order->id)}}" class="btn">Checkout</a>
+                                    <a href="{{route('home')}}" class="btn">Continue shopping</a>
                                 </div>
                             </div>
                         </div>

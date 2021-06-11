@@ -78,7 +78,7 @@
               <a href="" class="nav-link with-sub"><i  class="typcn typcn-document"></i>Categories</a>
               <nav class="az-menu-sub">
                 <a href="{{ route('admin.categories.index')}}" class="nav-link">List</a>
-                <a href="{{ route('admin.categories.create')}}" class="nav-link">Create</a>
+                <a href="{{ route('admin.categories.create')}}" class="nav-link">Create</a> 
               </nav>
             </li>
             <li class="nav-item">
@@ -86,6 +86,13 @@
               <nav class="az-menu-sub">
                 <a href="{{ route('admin.users.index')}}" class="nav-link">List</a>
                 <a href="{{ route('admin.users.create')}}" class="nav-link">Create</a>
+              </nav>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link with-sub"><i  class="typcn typcn-document"></i>Orders</a>
+              <nav class="az-menu-sub">
+                <a href="{{Auth::user()->role=='admin' ? route('admin.orders.index'):route('admin.orders.create')}}" class="nav-link">List</a>
+                {{-- <a href="{{ route('admin.users.create')}}" class="nav-link">Create</a> --}}
               </nav>
             </li>
             <li class="nav-item">
