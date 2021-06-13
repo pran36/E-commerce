@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\checkout;
-use App\Models\Order;
-use App\Models\OrderItem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
-class OrderController extends Controller
+class ReportsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id',Auth::id())->paginate(6);
-        return view('admin.orders.index',compact('orders'));
+        $users = User::select(DB::raw("COUNT(*) as count"))->whereYear('created_at',date('Y'))->groupby(DB::raw("Month(created_at)"))->pluck('count');
+        $months = User::select(DB::raw("Month(created_at) as month"))->whereYear('created_at',date('Y'))->groupby(DB::raw("Month(created_at)"))->pluck('month');
+        $datas = array(0,0,0,0,0,0,0,0,0,0,0,0);
+        foreach($months as $index=>$month){
+            $datas[$month] = $users[$index];
+        }
+        return view('admin.user_report',compact('datas'));
     }
 
     /**
@@ -29,22 +31,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->role == 'user'){
-            abort(403);
-        }elseif(Auth::user()->role == 'shopkeeper'){
-            $order_products = [];
-            $order_items = OrderItem::latest('id')->paginate(5);
-            foreach($order_items As $order_item){
-                if($order_item->product->user_id == Auth::id()){
-                    array_push($order_products,$order_item);
-                }
-            }
-            // return $order_products;
-            return view('admin.Orders.order_vendors',compact('order_products','order_items'));
-        }else{
-            $order_products = OrderItem::latest('id')->paginate(5);
-            return view('admin.Orders.order_vendors',compact('order_products'));
-        }
+        //
     }
 
     /**
@@ -66,11 +53,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::find($id);
-        $order_items = $order->orderItems;
-        $checkout = checkout::whereOrderId($order->id)->get()->take(1);
-        // return $checkout;
-        return view('admin.Orders.single_order',compact('order','order_items','checkout'));
+        //
     }
 
     /**

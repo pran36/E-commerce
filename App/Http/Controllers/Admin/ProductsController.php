@@ -27,7 +27,7 @@ class ProductsController extends Controller
         }
         else{
             $id = Auth::id();
-            $product = products::whereUserId($id)->get()->paginate(5); 
+            $product = products::whereUserId($id)->paginate(5); 
             // return $product;
             // $products=products::latest()->where($product->user_id == Auth::User()->id);
             return view('Admin.Products.index',['products'=>$product]);

@@ -10,7 +10,9 @@
 
       gtag('config', 'UA-90680653-2');
     </script>
-
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -96,11 +98,18 @@
               </nav>
             </li>
             <li class="nav-item">
+              <a href="" class="nav-link with-sub"><i  class="typcn typcn-document"></i>Reports</a>
+              <nav class="az-menu-sub">
+                <a href="{{ route('admin.reports.index')}}" class="nav-link">User Reports</a>
+                <a href="{{ route('admin.reports.create')}}" class="nav-link">Sales Reports</a>
+              </nav>
+            </li>
+            {{-- <li class="nav-item">
               <a href="chart-chartjs.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Charts</a>
-            </li>
-            <li class="nav-item">
+            </li> --}}
+            {{-- <li class="nav-item">
               <a href="form-elements.html" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Forms</a>
-            </li>
+            </li> --}}
             <li class="nav-item">
               <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i> Components</a>
               <div class="az-menu-sub">
@@ -217,11 +226,19 @@
     <script src="/admin/js/chart.flot.sampledata.js"></script>
     <script src="/admin/js/dashboard.sampledata.js"></script>
     <script src="/admin/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/ionicons/ionicons.js"></script>
+    <script src="../lib/chart.js/Chart.bundle.min.js"></script>
+
+
+    <script src="../js/azia.js"></script>
+    <script src="../js/chart.chartjs.js"></script>
+    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
     <script>
       $(function(){
         'use strict'
-
-    		var plot = $.plot('#flotChart', [{
+        var plot = $.plot('#flotChart', [{
           data: flotSampleData3,
           color: '#007bff',
           lines: {
@@ -234,101 +251,101 @@
             fillColor: { colors: [{ opacity: 0 }, { opacity: 0.2 }]}
           }
         }], {
-    			series: {
-    				shadowSize: 0,
+          series: {
+            shadowSize: 0,
             lines: {
               show: true,
               lineWidth: 2,
               fill: true
             }
-    			},
+          },
           grid: {
             borderWidth: 0,
             labelMargin: 8
           },
-    			yaxis: {
+          yaxis: {
             show: true,
-    				min: 0,
-    				max: 100,
+            min: 0,
+            max: 100,
             ticks: [[0,''],[20,'20K'],[40,'40K'],[60,'60K'],[80,'80K']],
             tickColor: '#eee'
-    			},
-    			xaxis: {
+          },
+          xaxis: {
             show: true,
             color: '#fff',
             ticks: [[25,'OCT 21'],[75,'OCT 22'],[100,'OCT 23'],[125,'OCT 24']],
           }
         });
-
+  
         $.plot('#flotChart1', [{
           data: dashData2,
           color: '#00cccc'
         }], {
-    			series: {
-    				shadowSize: 0,
+          series: {
+            shadowSize: 0,
             lines: {
               show: true,
               lineWidth: 2,
               fill: true,
               fillColor: { colors: [ { opacity: 0.2 }, { opacity: 0.2 } ] }
             }
-    			},
+          },
           grid: {
             borderWidth: 0,
             labelMargin: 0
           },
-    			yaxis: {
+          yaxis: {
             show: false,
             min: 0,
             max: 35
           },
-    			xaxis: {
+          xaxis: {
             show: false,
             max: 50
           }
-    		});
-
+        });
+  
         $.plot('#flotChart2', [{
           data: dashData2,
           color: '#007bff'
         }], {
-    			series: {
-    				shadowSize: 0,
+          series: {
+            shadowSize: 0,
             bars: {
               show: true,
               lineWidth: 0,
               fill: 1,
               barWidth: .5
             }
-    			},
+          },
           grid: {
             borderWidth: 0,
             labelMargin: 0
           },
-    			yaxis: {
+          yaxis: {
             show: false,
             min: 0,
             max: 35
           },
-    			xaxis: {
+          xaxis: {
             show: false,
             max: 20
           }
-    		});
-
-
+        });
+  
+  
         //-------------------------------------------------------------//
-
-
+  
+  
         // Line chart
         $('.peity-line').peity('line');
-
+  
         // Bar charts
         $('.peity-bar').peity('bar');
-
+  
         // Bar charts
         $('.peity-donut').peity('donut');
-
+  
         var ctx5 = document.getElementById('chartBar5').getContext('2d');
         new Chart(ctx5, {
           type: 'bar',
@@ -376,7 +393,7 @@
             }
           }
         });
-
+  
         // Donut Chart
         var datapie = {
           labels: ['Search', 'Email', 'Referral', 'Social', 'Other'],
@@ -385,7 +402,7 @@
             backgroundColor: ['#6f42c1', '#007bff','#17a2b8','#00cccc','#adb2bd']
           }]
         };
-
+  
         var optionpie = {
           maintainAspectRatio: false,
           responsive: true,
@@ -397,7 +414,7 @@
             animateRotate: true
           }
         };
-
+  
         // For a doughnut chart
         var ctxpie= document.getElementById('chartDonut');
         var myPieChart6 = new Chart(ctxpie, {
@@ -405,8 +422,7 @@
           data: datapie,
           options: optionpie
         });
-
-      });
-    </script>
+  
+      });</script>
   </body>
 </html>

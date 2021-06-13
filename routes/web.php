@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\UserReviewsController;
 use Illuminate\Routing\Route as RoutingRoute;
@@ -60,6 +61,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
 	Route::resource('categories',AdminCategoryController::class);
 	Route::resource('users',UserController::class);
 	Route::resource('orders',AdminOrderController::class);
+	Route::resource('reports',ReportsController::class);
 });
 Route::middleware(['auth'])->group(function(){
 	Route::resource('reviews',UserReviewsController::class);

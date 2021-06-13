@@ -81,7 +81,7 @@
                   </div>
                 </div><!-- card-body-top -->
                 <div class="flot-chart-wrapper">
-                  <div id="flotChart" class="flot-chart"></div>
+                  <div id="flotChart" class="flot-chart"></div> 
                 </div><!-- flot-chart-wrapper -->
               </div><!-- card-body -->
             </div><!-- card -->
